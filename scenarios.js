@@ -1,6 +1,6 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
-
+import exec from 'k6/execution';
 
 export const options = {
   vus: 10,
@@ -12,11 +12,12 @@ export const options = {
     http_reqs: ['rate > 4'],
     http_reqs: ['count > 20'],
     vus: ['value > 9'],
+    checks: ['rate > .99']
   }
 }
 
 export default function () {
-  const response = http.get('https://test.k6.io');
+  const response = http.get("https://test.k6.io" + (exec.scenario.iterationInTest === 1 ? "/foo" : "")); // simulates one request going haywire
   // console.log(response.status);
   check(response, {
     "Response status is 200": (res) => res.status === 200,
