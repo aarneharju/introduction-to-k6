@@ -7,7 +7,11 @@ export const options = {
   duration: '10s',
   thresholds: {
     http_req_duration: ['p(95) < 200'],
+    http_req_duration: ['max < 2000'],
     http_req_failed: ['rate < 0.01'], // 1% error rate allowed
+    http_reqs: ['rate > 4'],
+    http_reqs: ['count > 20'],
+    vus: ['value > 9'],
   }
 }
 
