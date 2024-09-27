@@ -1,24 +1,29 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 import exec from 'k6/execution';
+import { Counter } from 'k6/metrics'; // Counter, Rate, Gauge,  Trend
+
+let myCounter = new Counter('my_counter');
 
 export const options = {
-  vus: 10,
-  duration: '10s',
+  vus: 5,
+  duration: '5s',
   thresholds: {
     http_req_duration: ['p(95) < 200'],
     http_req_duration: ['max < 2000'],
     http_req_failed: ['rate < 0.01'], // 1% error rate allowed
-    http_reqs: ['rate > 4'],
-    http_reqs: ['count > 20'],
-    vus: ['value > 9'],
-    checks: ['rate > .99']
+    http_reqs: ['rate > 1'],
+    http_reqs: ['count > 10'],
+    vus: ['value > 3'],
+    checks: ['rate > .99'],
+    my_counter: ['count > 4']
   }
 }
 
 export default function () {
   const response = http.get("https://test.k6.io" + (exec.scenario.iterationInTest === 1 ? "/foo" : "")); // simulates one request going haywire
   // console.log(response.status);
+  myCounter.add(1);
   check(response, {
     "Response status is 200": (res) => res.status === 200,
     "Page is start page": (res) => res.body.includes("Collection of simple web-pages suitable for load testing."),
