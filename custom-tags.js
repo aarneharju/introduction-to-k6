@@ -5,7 +5,11 @@ import { check, sleep } from "k6";
 export const options = {
   thresholds: {
     http_req_duration: ["p(95) < 300"],
+    "http_req_duration{page:order}": ["p(95) < 200"],
     http_errors: ["count === 0"],
+    "http_errors{page:order}": ["count === 0"],
+    checks: ["rate > 0.95"],
+    "checks{page:order}": ["rate > 0.99"],
   },
 };
 
@@ -26,16 +30,23 @@ export default function () {
 
   // Submit order
   response = http.get(
-    "https://run.mocky.io/v3/95293f08-1956-4e58-84b5-789af6368a62?mocky-delay=2000ms"
+    "https://run.mocky.io/v3/95293f08-1956-4e58-84b5-789af6368a62?mocky-delay=2000ms",
+    {
+      tags: {
+        page: "order",
+      },
+    }
   );
 
   if (response.error) {
-    httpErrors.add(1);
+    httpErrors.add(1, { page: "order" });
   }
 
-  check(response, {
-    "status is 201": (res) => res.status === 201,
-  });
+  check(
+    response,
+    { "status is 201": (res) => res.status === 201 },
+    { page: "order" }
+  );
 
   sleep(1);
 }
