@@ -1,6 +1,5 @@
 import http from 'k6/http';
-import { check, sleep } from 'k6';
-import exec from 'k6/execution';
+import { sleep } from 'k6';
 import { Counter, Trend } from 'k6/metrics'; // Counter, Rate, Gauge,  Trend
 
 let myCounter = new Counter('my_counter');
@@ -11,8 +10,7 @@ export const options = {
   duration: '5s',
   thresholds: {
     my_counter: ['count > 4'],
-    response_time_news_page: ['p(95) < 200'],
-    response_time_news_page: ['p(99) < 250'],
+    response_time_news_page: ['p(95) < 200', 'p(99) < 250'],
   }
 }
 

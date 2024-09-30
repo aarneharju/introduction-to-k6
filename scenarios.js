@@ -9,11 +9,9 @@ export const options = {
   vus: 5,
   duration: '5s',
   thresholds: {
-    http_req_duration: ['p(95) < 200'],
-    http_req_duration: ['max < 2000'],
+    http_req_duration: ['p(95) < 200', 'max < 2000'],
     http_req_failed: ['rate < 0.01'], // 1% error rate allowed
-    http_reqs: ['rate > 1'],
-    http_reqs: ['count > 10'],
+    http_reqs: ['rate > 1', 'count > 10'],
     vus: ['value > 3'],
     checks: ['rate > .99'],
     my_counter: ['count > 4']
