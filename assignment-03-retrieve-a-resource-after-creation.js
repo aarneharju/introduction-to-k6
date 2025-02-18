@@ -15,7 +15,7 @@ export default function () {
 
     const responseLogin = http.post("https://test-api.k6.io/auth/token/login/", bodyLogin, paramsLogin);
 
-    console.log(responseLogin.json().access);
+    console.log("responseLogin:::::" + responseLogin.json().access);
     const accessToken = responseLogin.json().access;
 
     const paramsToken = {
@@ -25,9 +25,11 @@ export default function () {
     }
 
     const responseCroc = http.get("https://test-api.k6.io/my/crocodiles/15520941/", paramsToken);
-    console.log(responseCroc.json());
+    // console.log(responseCroc.json());
+    console.log(responseCroc.json().id);
 
     check(responseCroc, {
         "status is 200": (r) => r.status === 200,
+        "crocodile id is 15520941": (r) => r.json().id === 15520941,
     });
 }
