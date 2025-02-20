@@ -1,0 +1,54 @@
+{
+    "crocodiles": [
+        {
+            "name": "flame",
+            "sex": "F",
+            "date_of_birth": "1999-03-03"
+        },
+        {
+            "name": "breeze",
+            "sex": "M",
+            "date_of_birth": "2001-04-04"
+        },
+        {
+            "name": "storm",
+            "sex": "F",
+            "date_of_birth": "2002-05-05"
+        },
+        {
+            "name": "shadow",
+            "sex": "M",
+            "date_of_birth": "1998-06-06"
+        },
+        {
+            "name": "echo",
+            "sex": "F",
+            "date_of_birth": "2003-07-07"
+        },
+        {
+            "name": "ember",
+            "sex": "M",
+            "date_of_birth": "2004-08-08"
+        },
+        {
+            "name": "whisper",
+            "sex": "F",
+            "date_of_birth": "2005-09-09"
+        },
+        {
+            "name": "dusk",
+            "sex": "M",
+            "date_of_birth": "1997-10-10"
+        },
+        {
+            "name": "glimmer",
+            "sex": "F",
+            "date_of_birth": "2006-11-11"
+        },
+        {
+            "name": "blaze",
+            "sex": "M",
+            "date_of_birth": "1995-12-12"
+        }
+    ]
+}
